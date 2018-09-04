@@ -1,0 +1,122 @@
+Các bảng CSDL cho hệ BigStore:
+- Cụ dữ liệu cho phần sản phẩm:
+    - MainCategories
+    - Categories
+    - Banner
+    - ProductSpecialProperties
+    - FormProperties
+    - ImgProduct
+    - ProductRatting
+    - Product
+- Cụm dữ liệu cho phần tài khoản:
+    - Users
+    - WishList
+    - Contact
+    - UserQuestion
+    - Answers
+- Cụm cho Order:
+    - BigStoreOrder
+    - BigStoreOrderDetails
+    - StateOrder
+- Cụm dữ liệu cho thông tin website:
+    - Info
+    - Linked
+    - Slide
+    - Poster
+
+- Tên CSDL là BigStore
+- Sử dụng Auth để đăng nhập, mã hoá mật khẩu dưới dạng SHA
+    - Khi admin đăng nhập thành công, nếu muốn vào trang quản trị thì phải đăng nhập lần nữa
+    - Sau khi đăng nhập xong lần 2 thì người quản trị mới được phép vào trang quản trị
+    - Tại phần User chỉ cho phép nhập vào .png
+- Các chức năng cơ bản đã có trong hệ thống:
+    - Show sản phẩm
+    - Show sản phẩm theo danh mục
+    - Chi tiết sản phẩm
+    - Tìm kiếm sản phẩm
+        - Tìm kiếm dựa theo tên
+        - Tìm kiếm dựa theo info của sản phẩm
+    - Contact liên hệ giữa người dùng và sản phẩm
+    - Đăng ký, đăng nhập, đăng xuất, phân quyền cho người dùng
+    - Slider
+    - Banner
+    - Danh sách yêu thích của người dùng
+    - Giỏ hàng, đặt hàng, mua hàng cho người dùng
+        - Nếu người dùng đã đăng nhập thì không cần phải điền thông tin
+        - Nếu người dùng chưa đăng nhập thì cần điền đầy đủ thông tin
+    - Chức năng hỏi đáp giữa người dùng và người quản trị
+
+- Các chức năng phía quản trị
+    - Chức năng thêm sửa xoá(quản lý):
+        - Thêm sửa xoá cho danh mục cha
+        - Thêm sửa xoá cho danh mục con
+        - Thêm sửa xoá cho sản phẩm
+        - Thêm sửa xoá các thuộc tính đặc biệt của sản phẩm
+        - Quản lý người dùng
+        - Thêm sửa xoá hình ảnh, banner, slide
+        - Thêm sửa xoá thông tin liên hệ của website
+        - Xem và sửa thông tin của đơn hàng
+        - Xem các sản phẩm được yêu thích
+    - Chức năng thống kê
+        - Thống kê tổng
+            - Tổng số người dùng
+            - Tổng số đơn hàng
+            - Tổng số sản phẩm
+            - Tổng số phản hồi
+        - Thống kê sản phẩm
+            - Vẽ biểu đồ thể hiện số sản phẩm thuộc danh mục so với tổng số sản phẩm có trong kho(biểu đồ đường 1)
+            - Vẽ biểu đồ cột thể hiện số sản phẩm đã bán qua các mốc thời gian, ở phần trên có tổng số sản phẩm trong kho
+            - Biểu đồ thể hiện số lượng sản phẩm của các danh mục(biểu đồ tròn)
+            - Biểu đồ đường 2 thể hiện số đơn hàng qua các mốc thời gian
+            - Vẽ biểu đồ như website Shopin cũ
+            - Chuyen code JS của cái biểu đồ sang file .blade và nhận dữ liệu truyền vào dưới dạng JSON
+            - Phan tich Json va truyền kết quả cho biểu đồ để vẽ
+            - Lấy tổng sản phẩm trong kho
+            - Sử dụng thư viện CartBon đê xử lý thời gian
+                - Biểu đồ đường chỉ lấy các khoảng thời gian như(3 tháng trước, 6 tháng trước...)
+    - Hiển thị các thông tin mới
+        - Hiển thị 5 người dùng mới nhất
+        - Hiển thị 6 phản hồi mới nhất
+        - Hiển thị 6 bình luận mới nhất
+        - hiển thị 3 người dùng gần
+        - Hiển thị 3 đơn hàng được đặt gần nhất
+    - Tài khoản admin: nguyenlongit95 / thanhnhan96
+    - Phần Order History chỉ áp dụng cho người dùng đã đăng nhập tài khoản
+        - Kiểu tra Auth cho bảng user, nếu người dùng chưa đăng nhập thì yêu cầu đăng nhập
+    - Phần FAQ sẽ sử dụng Ajax để gủi và phản hồi dữ liệu
+        - Ajax sẽ được gửi lên server
+        - Dữ liệu gửi về sẽ được hiển thị ngay lập tức trên trang FAQ
+        - Người dùng phải đăng nhập để có thể gửi câu hỏi
+        - Nếu người dùng không đăng nhập thì chỉ được xem chứ k được gửi câu hỏi
+    - Phần đơn hàng
+        - Cài đặt và sử dungj Crinsane/LaravelShoppingCart
+        - Thay thế cho phần giỏ hàng của website
+        - Lấy nguyên cái mô hình giỏ hàng cũ
+        - Truyền tham số, dữ liệu cho giỏ hàng
+        - Khi thanh toán thì lưu vào CSDL
+        - Khi lưu thông tin đơn hàng vào CSDL thì trừ số lượng sản phẩm ở bảng Product đúng với sản phẩm đã mua
+        - Sau khi lưu vào CSDL thì truyển đúng tham số và trạng thái đơn hàng cho phía admin
+        - Install Shopping Cart: composer require gloudemans/shoppingcart
+        - Link tham khảo: https://github.com/Crinsane/LaravelShoppingcart
+        - Code nguồn của ShoppingCart sẽ nằm trong thư mục Vendor
+    - Phan lay lai mat khau hoac doi mat khau cu
+        - Khi thay doi mat khau thi phai nhap mk hien tai
+        - Gui email thong bao qua email sau do moi cho phep thay doi mk
+        - Trong email gui di se co 1 duong link de dan den trang nhap mat khau moi
+        - Tai trang nhap mat khau moi se yeu cau ng dung nhap mat khau
+- Tài khoản đăng nhập trang quan tri: nguyenlongit95 / thanhnhan96
+////////////////////////////////////////////////////////////////////////////////////////////
+
+- Email/Pass cua hostinger: BigStore20182019@gmail.com/thanhnhan96
+- Tao khoan Hostinger: BigStore20182019@gmail.com / thanhnhan96
+- Tên website: https://thebigstoreesyes.000webhostapp.com/public
+- Username/Password cua website: thebigstoreesyes/thanhnhan96
+- HostName / Port: files.000webhost.com / 21
+- DB name: BigStore
+- Database Username: BigStoreDB
+- Database Password: thanhnhan96
+
+
+///////////////////////////////////
+- Doi voi Bitrix24
+- Lay thoi gian hien tai cua he thong trong CSDL
